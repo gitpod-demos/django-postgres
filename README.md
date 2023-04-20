@@ -1,13 +1,9 @@
 # gitpod-django-postgres
 
-[![Build Status](https://travis-ci.org/jankeromnes/gitpod-django-postgres.svg?branch=master)](https://travis-ci.org/jankeromnes/gitpod-django-postgres)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/jankeromnes/gitpod-django-postgres)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 
-Test. Check out the project's [documentation](http://jankeromnes.github.io/gitpod-django-postgres/).
-
-# Prerequisites
-
-- [Docker](https://docs.docker.com/docker-for-mac/install/)  
+Check out the project's [documentation](http://jankeromnes.github.io/gitpod-django-postgres/).
 
 # Local Development
 
