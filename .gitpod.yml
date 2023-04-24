@@ -1,2 +1,8 @@
 tasks:
   - command: docker-compose up
+
+ports:
+  - port: 8000
+    onOpen: open-preview
+  - port: 8001
+    onOpen: open-preview
