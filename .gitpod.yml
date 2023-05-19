@@ -1,9 +1,39 @@
 tasks:
-  - init: docker-compose build
-    command: docker-compose up
+  - name: Background
+    init: |
+      docker-compose build
+      pyenv install -s $(cat $GITPOD_REPO_ROOT/.python-version)
+      python -m venv $GITPOD_REPO_ROOT/.venv
+      source $GITPOD_REPO_ROOT/.venv/bin/activate
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    command: |
+      source $GITPOD_REPO_ROOT/.venv/bin/activate
+      docker-compose up -d postgres
+      docker-compose up -d documentation
+      ./manage.py migrate
+      export DJANGO_SUPERUSER_PASSWORD='P4ssword!12345'
+      echo "$DJANGO_SUPERUSER_PASSWORD" > ~/.dj_password
+      ./manage.py createsuperuser --username gp-admin  --email gp-admin@gitpod.io --noinput
+      gp sync-done psql
+  - name: Interactive
+    command: |
+      gp sync-await psql
+      source $GITPOD_REPO_ROOT/.venv/bin/activate
+      cat << EOF
+      Start the Django app with "./manage.py runserver 0.0.0.0:8000"
+      User: gp-admin
+      Pass: $(cat ~/.dj_password)
+      EOF
+
+
+
+
 
 ports:
   - port: 8000
     onOpen: open-preview
   - port: 8001
     onOpen: open-preview
+  - port: 5432
+    onOpen: ignore
