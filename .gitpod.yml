@@ -12,8 +12,6 @@ tasks:
       docker-compose up -d postgres
       docker-compose up -d documentation
       ./manage.py migrate
-      export DJANGO_SUPERUSER_PASSWORD='P4ssword!12345'
-      echo "$DJANGO_SUPERUSER_PASSWORD" > ~/.dj_password
       ./manage.py createsuperuser --username gp-admin  --email gp-admin@gitpod.io --noinput
       gp sync-done psql
   - name: Interactive
@@ -23,12 +21,8 @@ tasks:
       cat << EOF
       Start the Django app with "./manage.py runserver 0.0.0.0:8000"
       User: gp-admin
-      Pass: $(cat ~/.dj_password)
+      Pass: $DJANGO_SUPERUSER_PASSWORD
       EOF
-
-
-
-
 
 ports:
   - port: 8000
